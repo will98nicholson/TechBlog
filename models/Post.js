@@ -12,16 +12,16 @@ Post.init(
             autoIncrement: true,
         },
         body: {
-            type: DataTypes.TEXT,
+            type: DataTypes.TEXT("long"),
             allowNull: false,
-            primaryKey: true,
-            autoIncrement: true
+
+
         },
         title: {
-            type: DataTypes.TEXT,
+            type: DataTypes.STRING,
             allowNull: false,
-            primaryKey: true,
-            autoIncrement: true
+
+
         }
     },
     {
@@ -29,7 +29,7 @@ Post.init(
         timestamps: false,
         freezeTableName: true,
         underscored: true,
-        modelName: 'project',
+        modelName: 'post',
     }
 );
 module.exports = Post;

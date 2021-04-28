@@ -12,10 +12,9 @@ Comment.init(
             autoIncrement: true,
         },
         body: {
-            type: DataTypes.TEXT,
+            type: DataTypes.TEXT("long"),
             allowNull: false,
-            primaryKey: true,
-            autoIncrement: true
+
         }
     },
     {
@@ -23,7 +22,7 @@ Comment.init(
         timestamps: false,
         freezeTableName: true,
         underscored: true,
-        modelName: 'project',
+        modelName: 'comment',
     }
 );
 module.exports = Comment;
