@@ -11,5 +11,19 @@ Comment.init(
             primaryKey: true,
             autoIncrement: true,
         },
+        body: {
+            type: DataTypes.TEXT,
+            allowNull: false,
+            primaryKey: true,
+            autoIncrement: true
+        }
+    },
+    {
+        sequelize,
+        timestamps: false,
+        freezeTableName: true,
+        underscored: true,
+        modelName: 'project',
     }
-)
+);
+module.exports = Comment;
