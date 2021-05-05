@@ -6,14 +6,14 @@ const signupFunction = async (event) => {
     const password = document.querySelector('#password-signup').value.trim();
 
     if (name && email && password) {
-        const response = await fetch('/api/user-routes', {
+        const response = await fetch('/api/users', {
             method: 'POST',
             body: JSON.stringify({ name, email, password }),
             headers: { 'Content-Type': 'application/json' },
         });
 
         if (response.ok) {
-            document.location.replace('/homepage');
+            document.location.replace('/dashboard');
         } else {
             alert(response.statusText);
         }
@@ -36,7 +36,7 @@ const loginFunction = async (event) => {
 
         if (response.ok) {
             // Successful login sends to profile handlebar
-            document.location.replace('/homepage');
+            document.location.replace('/dashboard');
         } else {
             alert(response.statusText);
         }
