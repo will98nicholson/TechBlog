@@ -4,7 +4,7 @@ const { Post } = require('../models');
 
 router.get('/', async (req, res) => {
     try {
-        res.render('homepage');
+        res.render('dashboard');
     } catch (err) {
         res.status(err).json(err);
     }
