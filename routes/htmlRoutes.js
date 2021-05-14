@@ -4,7 +4,7 @@ const { Post } = require('../models');
 
 router.get('/', async (req, res) => {
     try {
-        res.render('dashboard');
+        res.redirect('/dashboard');
     } catch (err) {
         res.status(err).json(err);
     }
@@ -19,12 +19,28 @@ router.get('/login', async (req, res) => {
 });
 router.get('/dashboard', async (req, res) => {
     try {
-        const posts = await Post.findAll({});
+        const data = await Post.findAll({});
+        const posts = data.map((post) => post.get({ plain: true }));
+
         console.log(posts)
         console.log(posts);
-        res.render('dashboard');
+        res.render('dashboard', { posts });
     } catch (err) {
         console.log(err);
+        res.status(err).json(err);
+    }
+});
+router.get('/post', async (req, res) => {
+    try {
+        res.render('post');
+    } catch (err) {
+        res.status(err).json(err);
+    }
+});
+router.get('/post/:id', async (req, res) => {
+    try {
+        res.render('post');
+    } catch (err) {
         res.status(err).json(err);
     }
 });

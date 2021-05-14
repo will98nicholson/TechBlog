@@ -1,14 +1,11 @@
 <h1>Dashboard</h1>
 <section>
-    <ul>
-        <li>
-            post
-        </li>
-        <li>
-            post
-        </li>
-        <li>
-            post
-        </li>
-    </ul>
+    <a href="/post">Add a New Post</a>
+    {{#each posts }}
+    <div class="uk-card uk-card-default uk-card-body uk-width-1-2@m">
+        <h3 class="uk-card-title">{{title}}</h3>
+        <p>{{ body }}</p>
+        <a href="/post/{{id}}" id="comment">Add a Comment</a>
+    </div>
+    {{/each}}
 </section>
