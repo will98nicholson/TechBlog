@@ -44,5 +44,12 @@ router.get('/post/:id', async (req, res) => {
         res.status(err).json(err);
     }
 });
+router.get('/comment', async (req, res) => {
+    try {
+        res.render('comment');
+    } catch (err) {
+        res.status(err).json(err);
+    }
+});
 
 module.exports = router;
