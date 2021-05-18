@@ -1,5 +1,7 @@
 const router = require('express').Router();
+const { User } = require('../models');
 const { Post } = require('../models');
+const { Comment } = require('../models');
 const withAuth = require('../utils/auth');
 //const { findAll } = require('../models/Post');
 
@@ -20,30 +22,41 @@ router.get('/login', async (req, res) => {
 });
 router.get('/dashboard', withAuth, async (req, res) => {
     try {
-        const data = await Post.findAll({});
+        const data = await Post.findAll(req.params.id, {
+            include: [
+                {
+                    model: User,
+                    attributes: ['email']
+                },
+                {
+                    model: Comment,
+                }
+            ]
+        });
         const posts = data.map((post) => post.get({ plain: true }));
-
-
         console.log(posts);
-        res.render('dashboard', { posts });
-    } catch (err) {
-        console.log(err);
-        res.status(err).json(err);
-    }
-});
-router.get('/dashboard', async (req, res) => {
-    try {
-        const data = await Comment.findAll({});
-        const comments = data.map((comment) => comment.get({ plain: true }));
-
-
+        const commentdata = await Comment.findAll({});
+        const comments = commentdata.map((comment) => comment.get({ plain: true }));
         console.log(comments);
-        res.render('dashboard', { comments });
+        res.render('dashboard', { posts, comments });
     } catch (err) {
         console.log(err);
         res.status(err).json(err);
     }
 });
+// router.get('/dashboard', async (req, res) => {
+//     try {
+//         const data = await Comment.findAll({});
+//         const comments = data.map((comment) => comment.get({ plain: true }));
+
+
+//         console.log(comments);
+//         res.render('dashboard', { comments });
+//     } catch (err) {
+//         console.log(err);
+//         res.status(err).json(err);
+//     }
+// });
 router.get('/post', async (req, res) => {
     try {
         res.render('post');

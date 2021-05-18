@@ -14,12 +14,20 @@
                 <textarea class="uk-textarea" rows="5" placeholder="Body" id="posttext"></textarea>
             </div>
 
-            <a class="uk-button uk-button-default" href="/dashboard" id="submit">Post</a>
+            <a class="uk-button uk-button-default" id="submit">Post</a>
 
             <div class="uk-margin">
                 <input class="uk-range" type="range" value="2" min="0" max="10" step="0.1">
             </div>
-
+            <div class="uk-margin">
+                <input class="uk-input uk-form-width-medium" type="text" placeholder="Add a Comment" id="postcomment">
+            </div>
+            <a class="uk-button uk-button-default" id="submitcomment">Comment</a>
+            {{#each comments}}
+            <ul class="uk-list uk-list-circle">
+                <li>{{body}}</li>
+            </ul>
+            {{/each}}
         </fieldset>
     </form>
 </section>

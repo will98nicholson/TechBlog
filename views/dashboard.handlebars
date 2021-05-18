@@ -4,16 +4,8 @@
     {{#each posts }}
     <div class="uk-card uk-card-default uk-card-body uk-width-1-2@m">
         <h3 class="uk-card-title">{{title}}</h3>
+        <h4 class="uk-card-title">{{title}}</h4>
         <p>{{ body }}</p>
-        <div class="uk-margin">
-            <input class="uk-input uk-form-width-medium" type="text" placeholder="Add a Comment" id="postcomment">
-        </div>
-        <a class="uk-button uk-button-default" href="/dashboard" id="submitcomment">Comment</a>
     </div>
-    {{#each comments }}
-    <ul class="uk-list uk-list-circle">
-        <li>{{comments.body}}</li>
-    </ul>
-    {{/each}}
     {{/each}}
 </section>

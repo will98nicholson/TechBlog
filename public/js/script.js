@@ -16,6 +16,7 @@ async function addNewComment() {
     if (commentInputEl.value) {
         const res = await fetch("/api/comments", { method: "POST", body: JSON.stringify({ post_id: location.pathname().split('/post/')[1], body: commentInputEl.value }), headers: { 'Content-Type': 'application/json' } })
         console.log(res);
+
         location.replace('/dashboard');
     }
 
