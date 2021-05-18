@@ -3,8 +3,8 @@ const { User } = require('../models');
 const { Post } = require('../models');
 const { Comment } = require('../models');
 const withAuth = require('../utils/auth');
-//const { findAll } = require('../models/Post');
 
+// homepage will just be the dashboard for now
 router.get('/', async (req, res) => {
     try {
         res.redirect('/dashboard');
@@ -20,9 +20,10 @@ router.get('/login', async (req, res) => {
         res.status(err).json(err);
     }
 });
+//show me all posts and comments with the user authors on the dashboard
 router.get('/dashboard', withAuth, async (req, res) => {
     try {
-        const data = await Post.findAll(req.params.id, {
+        const data = await Post.findAll({
             include: [
                 {
                     model: User,
@@ -35,55 +36,71 @@ router.get('/dashboard', withAuth, async (req, res) => {
         });
         const posts = data.map((post) => post.get({ plain: true }));
         console.log(posts);
-        const commentdata = await Comment.findAll({});
-        const comments = commentdata.map((comment) => comment.get({ plain: true }));
-        console.log(comments);
-        res.render('dashboard', { posts, comments });
+        res.render('dashboard', { posts, loggedIn: req.session.loggedIn });
     } catch (err) {
         console.log(err);
         res.status(err).json(err);
     }
 });
-// router.get('/dashboard', async (req, res) => {
-//     try {
-//         const data = await Comment.findAll({});
-//         const comments = data.map((comment) => comment.get({ plain: true }));
 
+router.get('/create', async (req, res) => {
+    try {
+        res.render('create');
+    } catch (err) {
+        res.status(err).json(err);
+    }
+});
 
-//         console.log(comments);
-//         res.render('dashboard', { comments });
-//     } catch (err) {
-//         console.log(err);
-//         res.status(err).json(err);
-//     }
-// });
 router.get('/post', async (req, res) => {
     try {
         res.render('post');
     } catch (err) {
         res.status(err).json(err);
     }
-});
+});// show me the comments on each individual post
 router.get('/post/:id', async (req, res) => {
     try {
-        res.render('post');
+        const getPosts = await Post.findByPk(req.params.id, {
+            include: [
+                {
+                    model: User,
+                    attributes: ['email']
+                },
+                {
+                    model: Comment,
+                    attributes: [
+                        "id",
+                        "user_id",
+                        "post_id",
+                        "body"
+                    ],
+                    include: [
+                        {
+                            model: User,
+                            attributes: ['email']
+                        }
+                    ]
+                }
+            ]
+        });
+        const post = getPosts.get({ plain: true });
+
+
+        res.render('post', {
+            post, logged_in: req.session.logged_in
+
+        });
     } catch (err) {
         res.status(err).json(err);
     }
 });
-// router.get('/comment', async (req, res) => {
+
+// router.get('/comment/:id', async (req, res) => {
 //     try {
-//         res.render('comment');
+//         res.render('post');
 //     } catch (err) {
 //         res.status(err).json(err);
 //     }
 // });
-router.get('/comment/:id', async (req, res) => {
-    try {
-        res.render('post');
-    } catch (err) {
-        res.status(err).json(err);
-    }
-});
 
 module.exports = router;

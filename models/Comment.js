@@ -32,6 +32,7 @@ Comment.init(
                 key: 'id',
             }
         }
+    },
     {
         sequelize,
         timestamps: false,

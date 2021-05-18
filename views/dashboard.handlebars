@@ -1,11 +1,16 @@
 <h1>Dashboard</h1>
 <section>
-    <a href="/post">Add a New Post</a>
-    {{#each posts }}
-    <div class="uk-card uk-card-default uk-card-body uk-width-1-2@m">
+    <a href="/create">Add a New Post</a>
+    {{#each posts as |post|}}
+    <a href="/post/{{post.id}}" class="uk-card uk-card-default uk-card-body uk-width-1-2@m">
         <h3 class="uk-card-title">{{title}}</h3>
-        <h4 class="uk-card-title">{{title}}</h4>
+        <h4 class="uk-text-small">{{post.user.email}}</h4>
         <p>{{ body }}</p>
-    </div>
+        {{#if post.comments.length}}
+        <h5 class="uk-text-small">{{post.comments.length}} comments on this post</h5>
+        {{else}}
+        <h6 class="uk-text-small">No comments on this post yet</h6>
+        {{/if}}
+    </a>
     {{/each}}
 </section>
