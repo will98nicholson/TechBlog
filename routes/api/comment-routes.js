@@ -3,7 +3,7 @@ const { Comment } = require('../../models');
 
 router.post('/', async (req, res) => {
     console.log(req.body)
-    const newComment = await Comment.create({ ...req.body })
+    const newComment = await Comment.create({ ...req.body, user_id: req.session.user_id })
     console.log(newComment);
     res.json(newComment);
 })
