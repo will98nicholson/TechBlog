@@ -7,7 +7,7 @@ const withAuth = require('../utils/auth');
 // homepage will just be the dashboard for now
 router.get('/', async (req, res) => {
     try {
-        res.redirect('/dashboard');
+        res.redirect('/login');
     } catch (err) {
         res.status(err).json(err);
     }
@@ -36,7 +36,7 @@ router.get('/dashboard', withAuth, async (req, res) => {
         });
         const posts = data.map((post) => post.get({ plain: true }));
         console.log(posts);
-        res.render('dashboard', { posts, loggedIn: req.session.loggedIn });
+        res.render('dashboard', { posts, logged_in: req.session.logged_in });
     } catch (err) {
         console.log(err);
         res.status(err).json(err);
