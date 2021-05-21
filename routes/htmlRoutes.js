@@ -20,6 +20,16 @@ router.get('/login', async (req, res) => {
         res.status(err).json(err);
     }
 });
+router.get('/logout', (req, res) => {
+    if (req.session.logged_in) {
+        req.session.destroy(() => {
+            res.redirect('/login')
+        });
+    } else {
+        res.status(404).end();
+    }
+});
+
 //show me all posts and comments with the user authors on the dashboard
 router.get('/dashboard', withAuth, async (req, res) => {
     try {
