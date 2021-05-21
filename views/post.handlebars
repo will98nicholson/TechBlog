@@ -10,15 +10,16 @@
             </div>
         </div>
     </div>
-    <div class="uk-card-body">
+    <div class="uk-card-body post-form">
         <p>{{post.body}}</p>
-        <button class="uk-button uk-button-default" id="deletepost">Delete</button>
+        <button class="uk-button uk-button-default" data-id="{{post.id}}" id="deletepost">Delete</button>
+        <button class="uk-button uk-button-default" id="editpost">Edit</button>
     </div>
     <div class="uk-margin">
         <input class="uk-input uk-form-width-medium" type="text" placeholder="Add a Comment" id="postcomment">
     </div>
     <a class="uk-button uk-button-default" id="submitcomment">Comment</a>
-    <div class="uk-margin uk-card uk-card-default uk-card-body">Comments:</div>
+    <h1 class="uk-heading-line uk-text-center"><span>COMMENTS</span></h1>
     {{#each post.comments as |comment|}}
     <article class="uk-comment uk-comment-primary">
         <header class="uk-comment-header">
@@ -41,4 +42,6 @@
     </article>
     {{/each}}
 </div>
-<script src="/js/comment.js"></script>
+{{!--
+<script src="/js/comment.js"></script> --}}
+<script src="/js/post.js"></script>
